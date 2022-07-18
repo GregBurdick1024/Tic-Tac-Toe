@@ -1,0 +1,27 @@
+* {
+    font-family: roboto;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px;
+    gap: 3px;
+}
+
+.square {
+    height: 100px;
+    width: 100px;
+    background-color: rgb(185, 183, 183);
+    border: black solid 1px;
+}
