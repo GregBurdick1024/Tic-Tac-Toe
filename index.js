@@ -13,7 +13,9 @@ const gameBoard = (() => {
         console.log(allTile)
         allTile.forEach(tile => {
             tile.innerText = gameBoardArr[tile.id]
-        })        
+        })  
+        
+        gameplayLoop.setPlayer()
         
     }
 
@@ -23,13 +25,14 @@ const gameBoard = (() => {
         let legalMove = gameBoardArr[index] == ''
         if(player && legalMove){
             gameBoardArr[index] = 'x'
+            gameplayLoop.setPlayer()
         } else if (!player && legalMove){
             gameBoardArr[index] = 'o'
+            gameplayLoop.setPlayer()
         }
 
         let tile = document.getElementById(index)
         tile.innerText = gameBoardArr[index]
-        gamePlayLoop.setPlayer()
     }
 
     return {
@@ -82,7 +85,7 @@ render.displayBoard()
 
 
 
-const gamePlayLoop = (() => {
+const gameplayLoop = (() => {
     let player = true
     let squaresNode = document.querySelectorAll('.square')
     let resetBtn = document.querySelector('.reset')
