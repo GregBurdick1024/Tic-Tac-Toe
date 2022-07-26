@@ -20,8 +20,18 @@ body {
 }
 
 .square {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
     height: 100px;
     width: 100px;
     background-color: rgb(185, 183, 183);
     border: black solid 1px;
+    box-shadow: 2px 2px 4px;
+}
+
+.square:hover {
+    background-color: rgb(102, 102, 102);
+    box-shadow: none;
 }

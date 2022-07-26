@@ -1,20 +1,111 @@
-gameBoardObj = {
-    gameBoardArr: ['x','x','x','x','o','o','o','x','x']
-};
+const gameBoard = (() => {
+    
+    
+    let gameBoardArr = ['','','','','','','','',''];
+    
+    const getArr = () => gameBoardArr
+    
+    const reset = () => {
+        gameBoardArr = ['','','','','','','','',''];
+        
+        
+        let allTile = document.querySelectorAll('.square')
+        console.log(allTile)
+        allTile.forEach(tile => {
+            tile.innerText = gameBoardArr[tile.id]
+        })        
+        
+    }
 
-gameObj = {};
 
-playerObj = {};
+    const handleClick = (index, player) => {
+        
+        let legalMove = gameBoardArr[index] == ''
+        if(player && legalMove){
+            gameBoardArr[index] = 'x'
+        } else if (!player && legalMove){
+            gameBoardArr[index] = 'o'
+        }
 
-let [...box] = document.querySelectorAll('.square');
+        let tile = document.getElementById(index)
+        tile.innerText = gameBoardArr[index]
+        gamePlayLoop.setPlayer()
+    }
 
+    return {
+        getArr,
+        reset,
+        handleClick
+    }
+})();
 
-function handleClick(e){
-    alert(`clicked ${e.target.classList[1]}`)
+const Player = (name) => {
+    const getName = () => name
+
+    return {
+       getName
+    }
 }
 
-box.forEach(box => addEventListener('click', handleClick));
 
-box.forEach(box => {
-    box.textContent(gameBoardObj.gameBoardArr[1])
-})
+
+
+const render = (() => {
+    let board = document.querySelector('.game-board');
+    let array = gameBoard.getArr()
+
+    
+    const displayBoard = () => {
+        
+        while (board.firstChild){
+
+            console.log(board.firstChild)
+            board.removeChild(board.firstChild)
+        }
+        
+        for(let i = 0; i < array.length; i++){
+            let square = document.createElement('div');
+            square.classList.add('square');
+            square.innerText = array[i]
+            square.setAttribute('id', `${i}`)
+            board.appendChild(square);
+        }
+        
+    }
+    return {
+        displayBoard
+    }
+})()
+
+render.displayBoard()
+
+
+
+
+const gamePlayLoop = (() => {
+    let player = true
+    let squaresNode = document.querySelectorAll('.square')
+    let resetBtn = document.querySelector('.reset')
+
+    let playerA = Player('Greg') 
+    let playerB = Player('computer')
+
+    //changes active player
+    const setPlayer = () => player = !player
+
+    const getPlayerA = () => playerA
+    const getPlayerB = () => playerB
+
+    squaresNode.forEach(square => square.addEventListener('click', () => gameBoard.handleClick(square.id, player)))
+    
+    resetBtn.addEventListener('click', () => gameBoard.reset())
+
+    
+
+    return {
+        setPlayer,
+        getPlayerA,
+        getPlayerB
+    }
+})()
+
